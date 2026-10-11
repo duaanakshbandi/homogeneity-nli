@@ -50,7 +50,7 @@
 .kid:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .kid[aria-pressed="true"] { background: #eff6ff; border-color: var(--primary-color); color: var(--primary-color); }
 .kid svg { width: 40px; height: 40px; }
-.premise { font-size: 1rem; padding: 0.75rem 1rem; border-left: 3px solid var(--primary-color); background: var(--background-secondary); border-radius: 0 var(--border-radius) var(--border-radius) 0; color: var(--text-primary); }
+.premise { font-size: 1rem; padding: 0.75rem 1rem; background: var(--background-secondary); border-radius: var(--border-radius); color: var(--text-primary); }
 .premise b { font-family: var(--f-code); font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); margin-right: 0.5rem; }
 .tvtable { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .tvtable th { font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-secondary); text-align: left; padding: 0 0.4rem 0.4rem; }
