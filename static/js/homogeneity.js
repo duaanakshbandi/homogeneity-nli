@@ -207,7 +207,7 @@
   /* ---------- hero: five kids ---------- */
   const laughed = [true, true, true, false, false];
   const FACE_ON = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16q3-3 6 0M22 16q3-3 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 22h18q-1 9-9 9t-9-9z" fill="currentColor"/></svg>';
-  const FACE_OFF = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="14.5" cy="16" r="2" fill="currentColor"/><circle cx="25.5" cy="16" r="2" fill="currentColor"/><path d="M13 27h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  const FACE_OFF = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11.5 16q3 2.5 6 0M22.5 16q3 2.5 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 27q1.5-1.6 3 0t3 0t3 0t3 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22.5 26.5l5.5 3.3" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="28.8" cy="30.3" r="2.2" fill="currentColor"/><path d="M27.5 8.5q-2 2.8-2 4a2 2 0 0 0 4 0q0-1.2-2-4z" fill="currentColor"/></svg>';
   const kidsEl = $("#kids");
   laughed.forEach((_, i) => {
     const b = document.createElement("button"); b.type = "button"; b.className = "kid";
@@ -217,22 +217,22 @@
   document.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
     const k = +b.dataset.preset; laughed.forEach((_, i) => (laughed[i] = i < k)); renderWorld();
   }));
-  const kidsPred = verb("laughed", "laugh");
+  const kidsPred = verb("improved after taking drug A", "improve after taking drug A");
   function renderWorld() {
     [...kidsEl.children].forEach((b, i) => {
       b.setAttribute("aria-pressed", String(laughed[i]));
-      b.setAttribute("aria-label", `Kid ${i + 1}: ${laughed[i] ? "laughed" : "did not laugh"}`);
-      b.innerHTML = (laughed[i] ? FACE_ON : FACE_OFF) + `<span>${laughed[i] ? "laughed" : "didn't"}</span>`;
+      b.setAttribute("aria-label", `Patient ${i + 1}: ${laughed[i] ? "improved" : "did not improve"}`);
+      b.innerHTML = (laughed[i] ? FACE_ON : FACE_OFF) + `<span>${laughed[i] ? "improved" : "didn't"}</span>`;
     });
     const k = laughed.filter(Boolean).length;
     const world = k === 5 ? "ALL" : k === 0 ? "NONE" : "GAP";
-    $("#w-premise").innerHTML = `<b>${world}</b>${esc(premise("{n} kids heard the joke.", 5, kidsPred, world, k))}`;
+    $("#w-premise").innerHTML = `<b>${world}</b>${esc(premise("{n} patients took drug A.", 5, kidsPred, world, k))}`;
     const gap = world === "GAP";
     const rows = [
-      ["The kids laughed.", world === "ALL" ? "True" : gap ? "Neither" : "False", world === "ALL" ? "True" : "False"],
-      ["The kids didn't laugh.", world === "NONE" ? "True" : gap ? "Neither" : "False", world === "NONE" ? "True" : "False"],
-      ["All the kids laughed.", world === "ALL" ? "True" : "False"],
-      ["Not all the kids laughed.", world === "ALL" ? "False" : "True"],
+      ["The patients improved after taking drug A.", world === "ALL" ? "True" : gap ? "Neither" : "False", world === "ALL" ? "True" : "False"],
+      ["The patients didn't improve after taking drug A.", world === "NONE" ? "True" : gap ? "Neither" : "False", world === "NONE" ? "True" : "False"],
+      ["All the patients improved after taking drug A.", world === "ALL" ? "True" : "False"],
+      ["Not all the patients improved after taking drug A.", world === "ALL" ? "False" : "True"],
     ];
     $("#w-rows").innerHTML = rows.map(([h, g, b]) => {
       const bc = b === undefined ? g : b;
@@ -254,7 +254,7 @@ Do not use common sense assumptions. Only use the text provided.`;
     ["Zero-shot", "Strict logic prompt", "Frames the model as a strict logician that outputs True, False or Neither.",
       `[System]\n${BASE}\n\n[User]\nPremise: {premise} Hypothesis: {hypothesis}\nPlease respond with ONLY one of the following options: "True", "False", or "Neither".`],
     ["DAP", "Definition-aware prompt", "Adds the homogeneity rule for plural definites and its absence for all and not all. Tests missing knowledge against failed application.",
-      `[System]\n${BASE.replace("\nDo not use", "\n\nImportant Linguistic Rule: Note the distinction between plural definite descriptions and quantified descriptions.\n- Plural definites (e.g., \"the kids\") are homogeneous: \"The kids laughed\" is true only if all of them laughed, and \"The kids didn't laugh\" is true only if none of them laughed. If some laughed and some did not, both sentences are neither true nor false.\n- Quantifiers (e.g., \"all the kids\", \"not all the kids\") have no such gap: if some laughed and some did not, \"All the kids laughed\" is false and \"Not all the kids laughed\" is true.\nDo not use")}\n\n[User]\nPremise: {premise} Hypothesis: {hypothesis}\nPlease respond with ONLY one of the following options: "True", "False", or "Neither".`],
+      `[System]\n${BASE.replace("\nDo not use", "\n\nImportant Linguistic Rule: Note the distinction between plural definite descriptions and quantified descriptions.\n- Plural definites (e.g., \"the patients\") are homogeneous: \"The patients improved after taking drug A\" is true only if all of them improved after taking drug A, and \"The patients didn't improve after taking drug A\" is true only if none of them improved after taking drug A. If some improved after taking drug A and some did not, both sentences are neither true nor false.\n- Quantifiers (e.g., \"all the patients\", \"not all the patients\") have no such gap: if some improved after taking drug A and some did not, \"All the patients improved after taking drug A\" is false and \"Not all the patients improved after taking drug A\" is true.\nDo not use")}\n\n[User]\nPremise: {premise} Hypothesis: {hypothesis}\nPlease respond with ONLY one of the following options: "True", "False", or "Neither".`],
     ["CoT", "Chain-of-thought prompt", "Asks the model to analyze how many members have the property and what the hypothesis claims, then label. JSON output.",
       `[System]\n${BASE}\n\n[User]\nPremise: {premise}\nHypothesis: {hypothesis}\n\nInstruction: First, analyze how many members of the group in the premise have the property (all, some, or none). Then analyze what the hypothesis claims about the group. Finally, provide your final label (True, False, or Neither).\n\nOutput Requirement: You must output your response in strict JSON format containing exactly two keys:\n1. "reasoning": A string explaining your step-by-step logic.\n2. "label": The final judgment ("True", "False", or "Neither").\n\nDo not include markdown formatting (like \`\`\`json). Return ONLY the JSON object.`],
     ["Enumeration", "Enumeration prompt", "Draws on supervaluation: list each member and whether the property holds for it, then label. JSON output.",

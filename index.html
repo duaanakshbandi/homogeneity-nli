@@ -30,7 +30,9 @@
   <meta name="theme-color" content="#2563eb">
 
   <title>Neither True nor False | HomogeneityNLI</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231e293b'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='700' font-size='20' text-anchor='middle' fill='%23eda100'%3E%23%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon-32.png">
+  <link rel="apple-touch-icon" href="static/images/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,7 +131,7 @@
       <div class="hero-body">
         <div class="world" aria-labelledby="world-title">
           <div class="world-head">
-            <span class="label" id="world-title">Tap a kid to change who laughed</span>
+            <span class="label" id="world-title">Tap a patient to change who improved</span>
             <div class="presets">
               <button type="button" data-preset="5">All</button>
               <button type="button" data-preset="3">Some</button>
@@ -160,7 +162,7 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Do Large Language Models (LLMs) genuinely grasp the truth conditions of plural descriptions, or do they force every sentence into true or false? We investigate the <strong>Homogeneity Gap</strong>, a semantic phenomenon where a plural definite (e.g., <em>the kids laughed</em>) and its negation (<em>the kids didn't laugh</em>) are both neither true nor false when only some of the kids laughed, whereas their quantified counterparts (<em>all</em>, <em>not all</em>) remain strictly bivalent. We introduce <strong>HomogeneityNLI</strong>, a diagnostic dataset of 1,000 minimal-pair items crossing determiner, polarity, and group composition across ten logical conditions. Evaluating seven open-weight models, we uncover a pervasive <strong>Bivalence Bias</strong>: models assign plural definites their homogeneous truth conditions, reading <em>the kids</em> as <em>all of them</em> and <em>the kids didn't</em> as <em>none of them</em>, yet collapse the truth-value gap into falsity. In the zero-shot setting, no model recognizes the gap for both polarities in more than 15% of scenarios, and negated definites are judged <em>False</em> in 84% of cases. Explicit linguistic rules, chain-of-thought, and enumeration prompts produce unstable, model-specific effects that often entrench the bias. Taken together, our findings indicate that current open-weight LLMs have acquired the truth conditions of plural predication but not its trivalent logic.
+              Large Language Models (LLMs) are increasingly being used to summarize and verify claims in critical sources that inform consequential decisions. Such claims are full of plural definites. If <em>three of five patients</em> improved after taking drug A, the claim <em>the patients improved after drug A</em> is not true, since two did not, yet its negation, <em>the patients didn't improve after drug A</em>, is not true either, since three did. In formal semantics, this truth-value gap is known as the <strong>Homogeneity Gap</strong>: <em>both</em> the plural definite and its negation are neither true nor false when the property holds for only a fraction of the plural referent. A model that cannot represent this gap turns mixed evidence into a clean verdict, an error that can be costly in high-stakes use. We introduce <strong>HomogeneityNLI</strong>, a diagnostic dataset of 1,000 minimal-pair items crossing determiner, polarity, and group composition across ten logical conditions. Evaluating seven open-weight models, we uncover a pervasive <strong>Bivalence Bias</strong>: models assign plural definites their homogeneous truth conditions. In the zero-shot setting, no model recognizes the gap for both polarities in more than 15% of scenarios, and negated definites are judged <em>False</em> in 84% of cases. Explicit linguistic rules, chain-of-thought, and enumeration prompts produce unstable, model-specific effects that often entrench the bias. Our findings indicate that current open-weight LLMs acquire the truth conditions of plural predication but not its trivalent logic, and cannot yet be trusted to summarize or verify claims whose evidence is mixed.
             </p>
           </div>
         </div>
@@ -292,7 +294,7 @@
       <div class="tablebox">
         <table class="data" id="metrics"></table>
       </div>
-      <p class="fineprint">A, B, C, D: accuracy per group. Ctrl: mean accuracy on the uniform-context controls E–H. EBR / UBR: share of <em>True</em> on A / B (existential and universal readings). HGR: both answers <em>Neither</em>. BCR: both <em>False</em>. ΔNA = Acc<sub>D</sub> − UBR: whether the model separates <em>not all the kids laughed</em> from <em>the kids didn't laugh</em>. Ctrl OK: scenarios (of 100) whose four definite controls are all correct. <span class="dagger">†</span> Degenerate run in which the controls fail; excluded from pooled analyses.</p>
+      <p class="fineprint">A, B, C, D: accuracy per group. Ctrl: mean accuracy on the uniform-context controls E–H. EBR / UBR: share of <em>True</em> on A / B (existential and universal readings). HGR: both answers <em>Neither</em>. BCR: both <em>False</em>. ΔNA = Acc<sub>D</sub> − UBR: whether the model separates <em>not all the patients improved after taking drug A</em> from <em>the patients didn't improve after taking drug A</em>. Ctrl OK: scenarios (of 100) whose four definite controls are all correct. <span class="dagger">†</span> Degenerate run in which the controls fail; excluded from pooled analyses.</p>
     </div>
   </section>
 
@@ -319,7 +321,7 @@
           <h3 class="title is-5">Tolerance near the top, and only on one side</h3>
           <div class="content">
             <p>When all but one member has the property, models accept the positive definite in 25% of cases, compared with 9% for balanced groups and 6% when only one member has it, mirroring non-maximality in human language.</p>
-            <p>The tolerance is one-sided: with only one member having the property, the negated definite rarely gets <em>Neither</em>. The gap is recognized most often for maximally mixed groups (56% <em>Neither</em> on A).</p>
+            <p>The tolerance is one-sided: when only one member has the property, the negated definite is accepted in just 10% of cases, barely more than for balanced groups (9%). The gap is recognized most often for maximally mixed groups (56% <em>Neither</em> on A, vs. 30–34% otherwise).</p>
           </div>
           <div class="model-pick"><label for="model-pick">Show</label><div class="select is-small"><select id="model-pick"></select></div></div>
         </div>
@@ -335,7 +337,7 @@
         <div class="column is-5">
           <h3 class="title is-5">Predicates shift which classical value models pick</h3>
           <div class="content">
-            <p>Action predicates are accepted in 23% of mixed scenarios (<em>The kids laughed</em>), properties in only 2% (<em>The hearts were red</em>), and locations and states in 14% each.</p>
+            <p>Action predicates are accepted in 23% of mixed scenarios (<em>The patients improved after taking drug A</em>), properties in only 2% (<em>The hearts were red</em>), and locations and states in 14% each.</p>
             <p>Predicate class does not affect the use of <em>Neither</em>: semantics changes which classical value models choose, not whether they recognize the gap.</p>
           </div>
         </div>
