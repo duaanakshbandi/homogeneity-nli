@@ -104,8 +104,12 @@ body {
 }
 
 .teaser .hero-body {
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.teaser .stats-row {
+  margin-top: 2rem;
 }
 
 .teaser {

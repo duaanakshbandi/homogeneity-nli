@@ -180,6 +180,26 @@ details.prompt pre { margin: 0.9rem 0 0; padding: 0.9rem !important; font-family
 
 .copy-bibtex-btn { font-family: 'Inter', sans-serif; }
 
+/* Motivation: news box */
+.news-box { display: flex; gap: 2rem; align-items: center; max-width: 1100px; margin: 0 auto; padding: 1.25rem; background: #fff; border: 1px solid var(--border-color); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); }
+.news-img { flex: 0 0 260px; display: block; border-radius: calc(var(--border-radius) - 4px); overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.news-img img { display: block; width: 100%; height: auto; }
+.news-img:hover, .news-img:focus-visible { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.news-text p { color: var(--text-primary); font-size: 1.02rem; line-height: 1.7; text-align: justify; hyphens: auto; }
+.news-text p + p { margin-top: 0.85rem; }
+.news-text .cite { text-decoration: none; font-weight: 600; white-space: nowrap; }
+.news-refs { list-style: none; counter-reset: ref; margin: 1.1rem 0 0; padding-top: 0.75rem; border-top: 1px solid var(--border-color); font-size: 0.8rem; line-height: 1.5; }
+.news-refs li { counter-increment: ref; display: grid; grid-template-columns: 1.8rem 1fr; }
+.news-refs li::before { content: "[" counter(ref) "]"; color: var(--text-secondary); }
+.news-refs li + li { margin-top: 0.3rem; }
+.news-refs a { color: var(--text-secondary); text-decoration: none; }
+.news-refs a:hover { color: var(--primary-color); text-decoration: underline; }
+@media (max-width: 700px) {
+  .news-box { flex-direction: column; align-items: stretch; padding: 1rem; }
+  .news-img { flex-basis: auto; max-width: 320px; margin: 0 auto; }
+  .news-text p { text-align: left; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero, .section { animation: none !important; }
   * { transition: none !important; scroll-behavior: auto !important; }
